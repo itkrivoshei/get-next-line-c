@@ -61,7 +61,7 @@ int				get_next_line(const int fd, char **line)
 	static char	*rem[OPEN_MAX];
 	int			rd;
 
-	if (fd < 0 || !line || fd > OPEN_MAX)
+	if (fd < 0 || !line || fd >= OPEN_MAX)
 		return (-1);
 	*line = ft_strnew(0);
 	if (ft_rem(line, &rem[fd], &p_nl))
