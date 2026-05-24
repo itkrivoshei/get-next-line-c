@@ -6,6 +6,9 @@
 get_next_line
 a.out
 
+# Test artifacts
+.get_next_line_test.txt
+
 # Editor and OS files
 .DS_Store
 .vscode/
