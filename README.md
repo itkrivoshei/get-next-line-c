@@ -1,69 +1,87 @@
 # Get Next Line in C
 
-Archived 42 School / School 21 project implementing a C function that reads text from a file descriptor line by line.
+[![CI](https://github.com/itkrivoshei/get-next-line-c/actions/workflows/ci.yml/badge.svg)](https://github.com/itkrivoshei/get-next-line-c/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/itkrivoshei/get-next-line-c?style=flat-square)](LICENSE)
 
-## Overview
+C implementation of `get_next_line`, a function that reads from a UNIX file descriptor one line at a time.
 
-`get_next_line` is a low-level C programming project focused on reading input incrementally from files or standard input.
+## Tech stack
 
-The project demonstrates file descriptor handling, buffer management, memory allocation, and careful return-value control.
+- C
+- Make
+- UNIX/POSIX file descriptors
+- Custom `libft` support library
 
-## Features
+## Scope
 
-- Reads a file line by line
-- Works with UNIX file descriptors
-- Uses manual memory management in C
-- Includes a simple `main.c` test file
-- Uses a supporting `libft` directory
+- Reads from files or standard input
+- Uses buffered reads with `BUFF_SIZE`
+- Keeps unread data between calls
+- Includes a small demo program in `main.c`
+- Includes a smoke test through `make test`
 
-## Project Structure
+## Requirements
 
-    .
-    ├── get_next_line.c
-    ├── get_next_line.h
-    ├── main.c
-    ├── libft/
-    ├── author
-    └── README.md
+- GCC or a compatible C compiler
+- Make
+- POSIX-like shell environment: Linux, macOS, or WSL
 
 ## Build
 
-To build the supporting library:
+```bash
+make
+```
 
-    cd libft
-    make
+## Run
 
-To compile the test program:
+Read from a file:
 
-    gcc main.c get_next_line.c -o get_next_line
+```bash
+./get_next_line path/to/file.txt
+```
 
-To run it with a file:
+Read from standard input:
 
-    ./get_next_line LICENSE
+```bash
+./get_next_line < path/to/file.txt
+```
 
-## Return Values
+## Test
 
-The function returns:
+```bash
+make test
+```
 
-    1   line was read
-    0   end of file
-    -1  error
+## Clean
 
-## Skills Demonstrated
+```bash
+make fclean
+```
 
-- C programming
-- UNIX file descriptors
-- File input/output
-- Manual memory management
-- Buffer-based reading
-- Basic systems programming
+## Return values
 
-## Status
+`get_next_line` returns:
 
-This repository is archived and kept public as part of my early engineering background from 42 School / School 21.
+```txt
+ 1   line was read
+ 0   end of file
+-1   error
+```
 
-It is not actively maintained.
+## Project structure
+
+```txt
+.
+├── .github/workflows/ci.yml
+├── libft/
+├── get_next_line.c
+├── get_next_line.h
+├── main.c
+├── Makefile
+├── LICENSE
+└── README.md
+```
 
 ## License
 
-This project is licensed under the GPL-3.0 License. See the LICENSE file for details.
+Licensed under the [GPL-3.0 License](LICENSE).
