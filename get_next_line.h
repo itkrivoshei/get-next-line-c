@@ -23,6 +23,10 @@
 # include <sys/types.h>
 # include "./libft/libft.h"
 
+# ifndef OPEN_MAX
+#  define OPEN_MAX 1024
+# endif
+
 int		get_next_line(const int fd, char **line);
 
 #endif
