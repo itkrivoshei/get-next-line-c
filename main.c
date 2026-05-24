@@ -18,33 +18,25 @@ int		main(int argc, char **argv)
 	char	*line;
 	int		result;
 
-	if (argc > 0)
+	fd = 0;
+	line = NULL;
+	if (argc > 1)
 	{
-		line = NULL;
-		if (argc == 1)
-		{
-			fd = 0;
-		}
-		else
-		{
-			fd = open(argv[1], O_RDONLY);
-		}
-		while ((result = get_next_line(fd, &line)) >= 0)
-		{
-			ft_putnbr(result);
-			ft_putstr(": ");
-			ft_putstr(line);
-			free(line);
-			if (result == 0)
-			{
-				close(fd);
-				return (0);
-			}
-			ft_putchar('\n');
-		}
-		close(fd);
+		fd = open(argv[1], O_RDONLY);
+		if (fd < 0)
+			return (1);
 	}
-	else
-		return (1);
-	return (0);
+	while ((result = get_next_line(fd, &line)) >= 0)
+	{
+		ft_putnbr(result);
+		ft_putstr(": ");
+		ft_putstr(line);
+		free(line);
+		if (result == 0)
+			break ;
+		ft_putchar('\n');
+	}
+	if (argc > 1)
+		close(fd);
+	return ((result < 0) ? 1 : 0);
 }
