@@ -85,3 +85,5 @@ make fclean
 ## License
 
 Licensed under the [GPL-3.0 License](LICENSE).
+
+## How to run\n\nPlease see project files for instructions.\n
