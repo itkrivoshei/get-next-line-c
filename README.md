@@ -1,42 +1,38 @@
-# Get Next Line in C
+<div align="center">
 
-[![CI](https://github.com/itkrivoshei/get-next-line-c/actions/workflows/ci.yml/badge.svg)](https://github.com/itkrivoshei/get-next-line-c/actions/workflows/ci.yml)
-[![License](https://img.shields.io/github/license/itkrivoshei/get-next-line-c?style=flat-square)](LICENSE)
+# get_next_line
 
-C implementation of `get_next_line`, a function that reads from a UNIX file descriptor one line at a time.
+Buffered C line reader for UNIX file descriptors.
 
-## Tech stack
+[![CI](https://img.shields.io/github/actions/workflow/status/itkrivoshei/get-next-line-c/ci.yml?branch=master&style=for-the-badge&label=ci&logo=githubactions&logoColor=white)](https://github.com/itkrivoshei/get-next-line-c/actions/workflows/ci.yml)
+[![C](https://img.shields.io/badge/C-89%20style-555?style=for-the-badge&logo=c&logoColor=white)](get_next_line.c)
+[![Make](https://img.shields.io/badge/Make-build-427819?style=for-the-badge&logo=gnu&logoColor=white)](Makefile)
+[![License](https://img.shields.io/badge/license-GPL--3.0-blue?style=for-the-badge)](LICENSE)
 
-- C
-- Make
-- UNIX/POSIX file descriptors
-- Custom `libft` support library
+</div>
 
-## Scope
+## API
 
-- Reads from files or standard input
-- Uses buffered reads with `BUFF_SIZE`
-- Keeps unread data between calls
-- Includes a small demo program in `main.c`
-- Includes a smoke test through `make test`
-
-## Requirements
-
-- GCC or a compatible C compiler
-- Make
-- POSIX-like shell environment: Linux, macOS, or WSL
-
-## Build
-
-```bash
-make
+```c
+int get_next_line(const int fd, char **line);
 ```
 
-## Run
+Return values:
 
-Read from a file:
+| Value | Meaning |
+| --- | --- |
+| `1` | A line was read |
+| `0` | End of file |
+| `-1` | Error |
+
+The implementation keeps unread data in a static per-file-descriptor buffer and reads chunks of `BUFF_SIZE` bytes until a newline or EOF is reached.
+
+## Build And Run
 
 ```bash
+git clone https://github.com/itkrivoshei/get-next-line-c.git
+cd get-next-line-c
+make
 ./get_next_line path/to/file.txt
 ```
 
@@ -46,44 +42,32 @@ Read from standard input:
 ./get_next_line < path/to/file.txt
 ```
 
-## Test
+Change the buffer size at compile time:
 
 ```bash
-make test
+make CFLAGS="-Wall -Wextra -Werror -D BUFF_SIZE=128"
 ```
 
-## Clean
+## Make Targets
 
-```bash
-make fclean
-```
+| Target | Description |
+| --- | --- |
+| `make` | Build the `get_next_line` executable |
+| `make test` | Run a smoke test for file and stdin input |
+| `make clean` | Remove object files |
+| `make fclean` | Remove objects and executable |
+| `make re` | Rebuild from scratch |
 
-## Return values
+## Files
 
-`get_next_line` returns:
-
-```txt
- 1   line was read
- 0   end of file
--1   error
-```
-
-## Project structure
-
-```txt
-.
-├── .github/workflows/ci.yml
-├── libft/
-├── get_next_line.c
-├── get_next_line.h
-├── main.c
-├── Makefile
-├── LICENSE
-└── README.md
+```text
+get_next_line.c   # line-reading implementation
+get_next_line.h   # public function declaration and constants
+main.c            # CLI smoke runner
+libft/            # bundled support library
+Makefile          # build, clean, smoke test
 ```
 
 ## License
 
-Licensed under the [GPL-3.0 License](LICENSE).
-
-## How to run\n\nPlease see project files for instructions.\n
+[GPL-3.0](LICENSE)
