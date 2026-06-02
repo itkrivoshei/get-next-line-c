@@ -30,21 +30,26 @@ char				*ft_itoa(int n)
 	char			*str;
 	unsigned int	nb;
 	unsigned int	sz;
+	unsigned int	pos;
 
 	if (n < 0)
 		nb = (unsigned int)(-(long)n);
 	else
 		nb = (unsigned int)n;
-	sz = size(nb);
-	if (!(str = (char*)malloc(sizeof(char) * (n < 0 ? (sz += 2) : (++sz)))))
+	sz = size(nb) + 1;
+	if (n < 0)
+		sz++;
+	if (!(str = (char*)malloc(sizeof(char) * sz)))
 		return (NULL);
-	str[--sz] = '\0';
-	(n < 0) ? (str[0] = '-') : 0;
+	pos = sz - 1;
+	str[pos] = '\0';
 	while (nb >= 10)
 	{
-		str[--sz] = nb % 10 + '0';
+		str[--pos] = nb % 10 + '0';
 		nb /= 10;
 	}
-	str[--sz] = nb % 10 + '0';
+	str[--pos] = nb % 10 + '0';
+	if (n < 0)
+		str[0] = '-';
 	return (str);
 }
