@@ -20,13 +20,13 @@ char	*ft_strnstr(const char *hstk, const char *ndle, size_t len)
 	if (*ndle == '\0')
 		return ((char *)hstk);
 	p1 = 0;
-	while (hstk[p1] != '\0' && p1 < len)
+	while (p1 < len && hstk[p1] != '\0')
 	{
 		if (hstk[p1] == ndle[0])
 		{
 			p2 = 1;
-			while (ndle[p2] != '\0' && hstk[p1 + p2] == ndle[p2] &&
-					p1 + p2 < len)
+			while (p1 + p2 < len && ndle[p2] != '\0'
+					&& hstk[p1 + p2] == ndle[p2])
 				p2++;
 			if (ndle[p2] == '\0')
 				return ((char*)&hstk[p1]);

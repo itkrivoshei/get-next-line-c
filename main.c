@@ -12,6 +12,13 @@
 
 #include "get_next_line.h"
 
+static int	is_safe_input_path(const char *path)
+{
+	if (!path || *path == '/' || ft_strstr(path, "..") || ft_strchr(path, '/'))
+		return (0);
+	return (1);
+}
+
 int		main(int argc, char **argv)
 {
 	int		fd;
@@ -22,6 +29,8 @@ int		main(int argc, char **argv)
 	line = NULL;
 	if (argc > 1)
 	{
+		if (!is_safe_input_path(argv[1]))
+			return (1);
 		fd = open(argv[1], O_RDONLY);
 		if (fd < 0)
 			return (1);

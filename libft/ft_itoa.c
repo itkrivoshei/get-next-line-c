@@ -32,7 +32,7 @@ char				*ft_itoa(int n)
 	unsigned int	sz;
 
 	if (n < 0)
-		nb = (unsigned int)(n * -1);
+		nb = (unsigned int)(-(long)n);
 	else
 		nb = (unsigned int)n;
 	sz = size(nb);
